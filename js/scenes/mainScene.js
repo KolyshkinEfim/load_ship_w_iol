@@ -6,6 +6,8 @@ export default class mainScene extends Phaser.Scene {
     this.screenHeight = document.body.clientHeigth;
     this.player;
     this.boat;
+    this.cursor;
+    this.playerSpeed = 100;
   }
   preload() {
     this.load.image("ocean", "../../assets/oceanBackground.jpg");
@@ -19,10 +21,22 @@ export default class mainScene extends Phaser.Scene {
   create() {
     this.add.image(1000, 500, "ocean");
     this.add.image(950, 900, "player");
-    this.boat = this.physics.add.sprite(100, 300, "boat");
+
+    this.player = this.add.image("950", "900", "texture", "player");
+
+    this.cursor = this.input.keyboard.createCursorKeys();
+
+    this.fPlayer = player;
   }
 
   update() {
-    console.log("update");
+    this.fPlayer.x += 1;
+    // if (this.cursor.left.isDown) {
+    //   this.fPlayer.setVelocityX(-100);
+    // } else if (this.cursor.rigth.isDown) {
+    //   this.fPlayer.setVelocityY(100);
+    // } else {
+    //   this.fPlayer.setVelocityX(0);
+    // }
   }
 }
