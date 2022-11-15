@@ -17,5 +17,4 @@ var config = {
   scene: [mainScene],
 };
 
-const game = new Phaser.Game(config);
-console.log(game);
+export default new Phaser.Game(config);

@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+
 export default class mainScene extends Phaser.Scene {
   constructor() {
     super("mainScene");
@@ -5,22 +7,20 @@ export default class mainScene extends Phaser.Scene {
     this.screenWidth = document.body.clientWidth;
     this.screenHeight = document.body.clientHeigth;
     this.player;
-    this.boat;
     this.cursor;
     this.playerSpeed = 100;
   }
   preload() {
     this.load.image("ocean", "../../assets/oceanBackground.jpg");
-    this.load.image("player", "../../assets/player/testBoat.png");
-    this.load.spritesheet("boat", "../../assets/player/testBoat.png", {
-      frameWidth: 100,
-      frameHeigth: 800,
+
+    this.load.spritesheet("player", "../../assets/player/player.png", {
+      frameWidth: 200,
+      frameHeigth: 300,
     });
   }
 
   create() {
     this.add.image(1000, 500, "ocean");
-    this.add.image(950, 900, "player");
 
     this.player = this.add.image("950", "900", "texture", "player");
 
