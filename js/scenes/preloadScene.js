@@ -1,5 +1,7 @@
 export default class preloadScene extends Phaser.Scene {
-  constructor() {}
+  constructor() {
+    Phaser.Scene.call(this, { key: "preloader" });
+  }
 
   preload() {}
 

@@ -4,8 +4,6 @@ export default class mainScene extends Phaser.Scene {
 
     this.screenWidth = document.body.clientWidth;
     this.screenHeight = document.body.clientHeigth;
-    this.playerSpeed = 100;
-
     this.player = undefined;
     this.cursors = undefined;
   }
