@@ -1,4 +1,3 @@
-const playerModel = "player";
 export default class mainScene extends Phaser.Scene {
   constructor() {
     super("mainScene");
@@ -14,6 +13,7 @@ export default class mainScene extends Phaser.Scene {
     this.load.image("ocean", "../../assets/ocean.png");
     this.load.image("waves", "../../assets/waves.png");
     this.load.image("waves2", "../../assets/waves2.png");
+    this.load.image("bottle", "../../assets/items/oilBottle.png");
 
     this.load.image("player", "../../assets/player/_player.png");
   }
@@ -22,10 +22,13 @@ export default class mainScene extends Phaser.Scene {
     this.add.image(1000, 500, "ocean");
     this.add.image(1000, 500, "waves");
 
+    this.add.image(1000, 200, "bottle");
+    this.add.image(800, 300, "bottle");
+    this.add.image(600, 500, "bottle");
+    this.add.image(300, 700, "bottle");
+
     this.cursors = this.input.keyboard.createCursorKeys();
-
     this.player = this.physics.add.image(100, 100, "player");
-
     this.player.setCollideWorldBounds(true);
   }
 

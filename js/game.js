@@ -1,4 +1,5 @@
 import mainScene from "./scenes/mainScene.js";
+import menuScene from "./scenes/menuScene.js";
 const gameHeight = document.body.clientHeigth;
 const gameWidth = document.body.clientWidth;
 
@@ -14,7 +15,7 @@ var config = {
       debug: true,
     },
   },
-  scene: [mainScene],
+  scene: [menuScene, mainScene],
 };
 
 let game = new Phaser.Game(config);
