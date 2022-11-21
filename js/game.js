@@ -1,22 +1,21 @@
-import mainScene from "./scenes/mainScene.js";
-import menuScene from "./scenes/menuScene.js";
-import resultScene from "./scenes/resultScene.js";
 const gameHeight = document.body.clientHeigth;
 const gameWidth = document.body.clientWidth;
 
 var config = {
-  type: Phaser.AUTO,
+  type: Phaser.WEBGL,
   width: gameWidth,
   height: gameHeight,
-  parent: "game",
+  backgroundColor: "black",
   physics: {
     default: "arcade",
     arcade: {
-      gravity: { y: 0 },
+      gravity: { x: 0, y: 0 },
       debug: true,
     },
   },
-  scene: [mainScene],
+  scene: [menuScene, mainScene, resultScene],
+  pixelArt: true,
+  roundPixels: true,
 };
 
-let game = new Phaser.Game(config);
+var game = new Phaser.Game(config);
