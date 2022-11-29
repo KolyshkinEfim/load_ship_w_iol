@@ -6,80 +6,108 @@ class mainScene extends Phaser.Scene {
     this.screenHeight = document.body.clientHeigth;
     this.player = undefined;
     this.cursors = undefined;
-    this.bootle = undefined;
-    this.score = undefined;
+    this.isSlowed = false;
   }
   preload() {
     this.load.image("ocean", "../../assets/ocean.png");
     this.load.image("waves", "../../assets/waves.png");
     this.load.image("waves2", "../../assets/waves2.png");
-    this.load.image("donekolba", "../../assets/items/OilKolba.png");
-
-    this.load.image("player", "../../assets/player/_player.png");
+    this.load.image("smallGlaciers", "../../assets/smallGlaciers.png");
+    this.load.image("smallGlaciers2", "../../assets/smallGlaciers2.png");
+    this.load.image("player", "../../assets/player/player.png");
   }
 
   create() {
-    this.add.image(1000, 500, "ocean");
-    this.add.image(1000, 500, "waves");
+    this.background = this.add.sprite(0, 0, "ocean");
+    this.background.setOrigin(0, 0);
+    this.background.setScale(1);
+    this.background.alpha = 0.8;
+
+    this.waves = this.add.image(0, 0, "waves");
+    this.waves2 = this.add.image(100, 200, "waves2");
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.player = this.physics.add.image(975, 800, "player");
+
+    this.player = this.physics.add.image(100, 475, "player");
     this.player.setCollideWorldBounds(true);
+    this.player.setDamping(true);
+    this.player.setDrag(0.99);
 
-    this.createScore();
+    this.upperGlaciers = this.physics.add.image(970, 70, "smallGlaciers");
+    this.downGlaciers = this.physics.add.image(970, 940, "smallGlaciers2");
 
-    this.kolba = this.physics.add.image(1100, 400, "donekolba");
+    this.testText = this.add.text(10, 10, "", {
+      font: "16px Courier",
+      fill: "#00ff00",
+    });
+
     this.physics.add.overlap(
       this.player,
-      this.kolba,
-      this.oilCollecting,
+      this.downGlaciers,
+      this.movementSlowed,
+      null,
+      this
+    );
+
+    this.physics.add.overlap(
+      this.player,
+      this.upperGlaciers,
+      this.movementSlowed,
       null,
       this
     );
   }
 
-  createScore() {
-    this.score = 0;
-
-    let style = { font: "20px Arial", fill: "white" };
-
-    this.scoreText = this.add.text(
-      20,
-      20,
-      "Количество собранных колб: " + this.score,
-      style
-    );
+  movementSlowed() {
+    this.isSlowed = true;
+    console.log("SLOWED");
   }
 
-  oilCollecting() {
-    this.kolba.x = Phaser.Math.Between(100, 1200);
-    this.kolba.y = Phaser.Math.Between(100, 1000);
+  // movementNormal() {
+  //   this.isSlowed = false;
+  //   console.log("NOT SLOWED");
+  // }
 
-    this.score += 1;
+  movementReset() {
+    this.player.setVelocityY(0);
+  }
 
-    this.scoreText.setText("Количество собранных колб: " + this.score);
+  // checkSlowedMovement() {
+  //   if (this.isSlowed) {
+  //     this.player.setVelocityX(10);
+  //   } else {
+  //     this.player.setVelocityX(20);
+  //   }
+  // }
 
-    // this.tweens.add({
-    //   target: this.player,
-    //   duration: 300,
-    //   scaleX: 1.1,
-    //   scaleY: 1.1,
-    //   yoyo: true,
-    // });
+  movement() {
+    // set the initial value of the player movement;
+    // this.checkSlowedMovement();
+    this.player.setVelocityX(20);
+    if (this.cursors.up.isDown) {
+      this.player.setVelocityY(-100); // default valuer is a -20 & 20
+    } else if (this.cursors.down.isDown) {
+      this.player.setVelocityY(100);
+    } else {
+      this.movementReset();
+    }
+  }
+
+  testSpeedChecker() {
+    this.testText.setText("Speed: " + this.player.body.speed); //just for the test
   }
 
   update() {
-    this.player.setVelocity(0);
-    if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-300);
-    } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(300);
-    }
-
-    if (this.cursors.up.isDown) {
-      this.player.setVelocityY(-300);
-    } else if (this.cursors.down.isDown) {
-      this.player.setVelocityY(300);
-    }
+    this.movement();
+    this.testSpeedChecker(); //just for the test
   }
 }
+
+// this.kolba = this.physics.add.image(1100, 400, "bottle");
+// this.physics.add.overlap(
+//   this.player,
+//   this.kolba,
+//   this.oilCollecting,
+//   null,
+//   this
+// );

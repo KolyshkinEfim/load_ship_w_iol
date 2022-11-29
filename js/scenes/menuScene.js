@@ -3,7 +3,19 @@ class menuScene extends Phaser.Scene {
     super({ key: "menuScene" });
   }
 
+  screenSetting(cgw, cgh) {
+    cgw = cgw * 0.5;
+    cgh = cgh * 0.5;
+    const result = [cgw, cgh];
+    return result;
+  }
+
   preload() {
+    this.centerScreen = this.screenSetting(
+      document.body.clientWidth,
+      document.body.clientHeight
+    );
+
     this.load.image(
       "background",
       "../../assets/scene/startSceneBackground.png"
@@ -21,12 +33,9 @@ class menuScene extends Phaser.Scene {
 
   create() {
     this.sfx = {}; //for the sound
-    this.add.image(this.game.config.width * 0.5, 550, "background");
-    this.btnPlay = this.add.sprite(
-      this.game.config.width * 0.5,
-      550,
-      "sprBtnPlay"
-    );
+    this.background = this.add.image(this.centerScreen[0], 550, "background");
+
+    this.btnPlay = this.add.sprite(this.centerScreen[0], 550, "sprBtnPlay");
 
     this.btnPlay.setInteractive();
 
@@ -59,7 +68,7 @@ class menuScene extends Phaser.Scene {
       this
     );
 
-    this.title = this.add.text(this.game.config.width * 0.5, 128, "ShipGame", {
+    this.title = this.add.text(this.centerScreen[0], 128, "ShipGame", {
       fontFamily: "monospace",
       fontSize: 48,
       fontStyle: "bold",

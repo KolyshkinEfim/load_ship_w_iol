@@ -5,10 +5,11 @@ var config = {
   type: Phaser.WEBGL,
   width: gameWidth,
   height: gameHeight,
-  backgroundColor: "black",
+  backgroundColor: "white",
   physics: {
     default: "arcade",
     arcade: {
+      fps: 60,
       gravity: { x: 0, y: 0 },
       debug: true,
     },
