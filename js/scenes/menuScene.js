@@ -12,8 +12,8 @@ class menuScene extends Phaser.Scene {
 
   preload() {
     this.centerScreen = this.screenSetting(
-      document.body.clientWidth,
-      document.body.clientHeight
+      window.innerWidth,
+      window.innerHeight
     );
 
     this.load.image(
@@ -33,9 +33,17 @@ class menuScene extends Phaser.Scene {
 
   create() {
     this.sfx = {}; //for the sound
-    this.background = this.add.image(this.centerScreen[0], 550, "background");
+    this.background = this.add.image(
+      this.centerScreen[0],
+      this.centerScreen[1],
+      "background"
+    );
 
-    this.btnPlay = this.add.sprite(this.centerScreen[0], 550, "sprBtnPlay");
+    this.btnPlay = this.add.sprite(
+      this.centerScreen[0],
+      this.centerScreen[1],
+      "sprBtnPlay"
+    );
 
     this.btnPlay.setInteractive();
 

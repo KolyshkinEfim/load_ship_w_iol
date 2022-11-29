@@ -3,7 +3,18 @@ class resultScene extends Phaser.Scene {
     super({ key: "resultScene" });
   }
 
+  screenSetting(cgw, cgh) {
+    cgw = cgw * 0.5;
+    cgh = cgh * 0.5;
+    const result = [cgw, cgh];
+    return result;
+  }
+
   preload() {
+    this.centerScreen = this.screenSetting(
+      window.innerWidth,
+      window.innerHeight
+    );
     this.load.image(
       "background",
       "../../assets/scene/startSceneBackground.png"
@@ -26,10 +37,14 @@ class resultScene extends Phaser.Scene {
 
   create() {
     this.sfx = {}; // for the sound
-    this.background = this.add.image(config.width * 0.5, 550, "background");
+    this.background = this.add.image(
+      this.centerScreen[0],
+      this.centerScreen[1],
+      "background"
+    );
     this.btnRestart = this.add.sprite(
-      this.game.config.width * 0.5,
-      550,
+      this.centerScreen[0],
+      this.centerScreen[1],
       "sprBtnRestart"
     );
 
@@ -64,18 +79,13 @@ class resultScene extends Phaser.Scene {
       this
     );
 
-    this.title = this.add.text(
-      this.game.config.width * 0.5,
-      128,
-      "Вы проиграли",
-      {
-        fontFamily: "monospace",
-        fontSize: 48,
-        fontStyle: "bold",
-        color: "#ffffff",
-        align: "center",
-      }
-    );
+    this.title = this.add.text(this.centerScreen[0], 128, "Вы проиграли", {
+      fontFamily: "monospace",
+      fontSize: 48,
+      fontStyle: "bold",
+      color: "#ffffff",
+      align: "center",
+    });
     this.title.setOrigin(0.5);
   }
 }

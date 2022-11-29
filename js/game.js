@@ -1,10 +1,7 @@
-const gameHeight = document.body.clientHeigth;
-const gameWidth = document.body.clientWidth;
-
 var config = {
   type: Phaser.WEBGL,
-  width: gameWidth,
-  height: gameHeight,
+  width: window.innerWidth,
+  height: window.innerHeight,
   backgroundColor: "white",
   physics: {
     default: "arcade",

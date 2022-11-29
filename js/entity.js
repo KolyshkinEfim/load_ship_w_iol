@@ -43,7 +43,9 @@ class Player extends Entity {
 }
 
 class Iceberg extends Entity {
-  constructor(scene, x, y, key) {
-    super(scene, x, y, key, "iceberg");
+  constructor(scene, x, y) {
+    super(scene, x, y, "enemyIceberg", "Iceberg");
+    this.body.velocity.x = -Phaser.Math.Between(5, 20);
+    this.setScale(0.3);
   }
 }
