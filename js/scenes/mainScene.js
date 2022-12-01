@@ -132,7 +132,7 @@ class mainScene extends Phaser.Scene {
 
     this.physics.add.overlap(
       this.player,
-      [this.downGlaciers, this.upperGlaciers, this],
+      [this.downGlaciers, this.upperGlaciers],
       this.movementSlowed,
       null,
       this
