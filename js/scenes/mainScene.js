@@ -1,6 +1,6 @@
 class mainScene extends Phaser.Scene {
   constructor() {
-    super("mainScene");
+    super({ key: "mainScene" });
 
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
@@ -204,6 +204,7 @@ class mainScene extends Phaser.Scene {
             if (!this.cameraScoped) {
               this.scopeCamera();
               this.cameraScoped = true;
+              setTimeout(this.scene.start("hookScene"), 2);
             }
           }
         },
