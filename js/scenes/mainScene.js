@@ -118,11 +118,6 @@ class mainScene extends Phaser.Scene {
     this.enemyIceberg10 = this.physics.add.image(1400, 400, "enemyIceberg");
     this.enemyIceberg10.setScale(1);
 
-    this.time.addEvent({
-      delay: 1000,
-      calback: function () {},
-    });
-
     this.testText = this.add.text(10, 10, "", {
       font: "16px Courier",
       fill: "#00ff00",
