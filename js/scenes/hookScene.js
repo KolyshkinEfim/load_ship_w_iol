@@ -469,14 +469,14 @@ class hookScene extends Phaser.Scene {
     );
     this.oilStationSide.setScale(0.4);
 
-    this.oilStationAnim = this.add.sprite(
-      this.screenWidth / 2,
-      this.screenHeight / 2,
-      "sprOilStation"
-    );
-    this.play("sprOilStation");
+    // this.oilStationAnim = this.add.sprite(
+    //   this.screenWidth / 2,
+    //   this.screenHeight / 2,
+    //   "sprOilStation"
+    // );
+    // this.play("sprOilStation  ");
 
-    this.oilStationAnim.setScale(0.2);
+    // this.oilStationAnim.setScale(0.2);
   }
 
   movement() {
@@ -487,8 +487,15 @@ class hookScene extends Phaser.Scene {
       this.playerSide.setVelocityX(20);
     }
     if (this.playerSide.x <= this.screenWidth / 2) {
-      console.log("done");
     }
+  }
+
+  docking() {
+    this.playerSide.setVelocityX(0);
+    this.sliderStrip = this.load.image(
+      this.screenWidth - 100,
+      this.screenHeight / 2
+    );
   }
 
   updateScore() {
