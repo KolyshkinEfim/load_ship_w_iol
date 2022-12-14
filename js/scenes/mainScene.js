@@ -1,6 +1,6 @@
 class mainScene extends Phaser.Scene {
   constructor() {
-    super("mainScene");
+    super({ key: "mainScene" });
 
     this.screenWidth = window.innerWidth;
     this.screenHeight = window.innerHeight;
@@ -12,6 +12,8 @@ class mainScene extends Phaser.Scene {
     this.tracker = 0;
     this.missionEvent = false;
     this.cameraScoped = false;
+    //for the moving the ship normally
+    this.onPoint = false;
   }
 
   //#region preload
@@ -70,6 +72,7 @@ class mainScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     this.player.setDamping(true);
     this.player.setDrag(0.99);
+    this.player.setScale(0.1);
 
     this.upperGlaciers = this.physics.add.image(970, 70, "smallGlaciers");
     this.downGlaciers = this.physics.add.image(970, 940, "smallGlaciers2");
@@ -114,11 +117,6 @@ class mainScene extends Phaser.Scene {
     this.enemyIceberg9.setScale(0.6);
     this.enemyIceberg10 = this.physics.add.image(1400, 400, "enemyIceberg");
     this.enemyIceberg10.setScale(1);
-
-    this.time.addEvent({
-      delay: 1000,
-      calback: function () {},
-    });
 
     this.testText = this.add.text(10, 10, "", {
       font: "16px Courier",
@@ -197,6 +195,7 @@ class mainScene extends Phaser.Scene {
             ++this.tracker;
           }
           if (this.tracker === 5) {
+            // while()
             this.player.x = this.missionRectangle.x;
             this.player.y = this.missionRectangle.y;
             this.player.setVelocityX(0);
@@ -204,6 +203,7 @@ class mainScene extends Phaser.Scene {
             if (!this.cameraScoped) {
               this.scopeCamera();
               this.cameraScoped = true;
+              this.hookSceneChange();
             }
           }
         },
@@ -212,6 +212,10 @@ class mainScene extends Phaser.Scene {
       });
       this.missionEvent = true;
     }
+  }
+
+  hookSceneChange() {
+    setTimeout(() => this.scene.start("hookScene"), 2000);
   }
 
   scopeCamera() {
@@ -236,6 +240,9 @@ class mainScene extends Phaser.Scene {
         this.player.setVelocityY(-20); // default valuer is a -20 & 20
       } else if (this.cursors.down.isDown) {
         this.player.setVelocityY(20);
+      } else if (this.cursors.right.isDown) {
+        this.player.x = this.missionRectangle.x - 30;
+        this.player.y = this.missionRectangle.y;
       } else {
         this.movementReset();
       }
