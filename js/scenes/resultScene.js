@@ -56,7 +56,7 @@ class resultScene extends Phaser.Scene {
       "pointerup",
       function () {
         this.btnRestart.setTexture("sprBtnRestart");
-        this.scene.start("menuScene");
+        this.scene.start("mainScene");
       },
       this
     );

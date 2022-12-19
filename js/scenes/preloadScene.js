@@ -28,6 +28,13 @@ class preloadScene extends Phaser.Scene {
     this.load.image("enemyIceberg2", "../../assets/objects/iceberg2.png");
 
     this.load.image("oilStation", "../../assets/objects/oilStation.png");
+    this.load.image(
+      "distanceRectnagle",
+      "../../assets/objects/distanceRectangle.png"
+    );
+    this.load.image("1000m", "../../assets/scene/1000meter.png");
+    this.load.image("500m", "../../assets/scene/500meter.png");
+    this.load.image("80m", "../../assets/scene/80meter.png");
     //#endregion
     //#region resultScene
     this.load.image(

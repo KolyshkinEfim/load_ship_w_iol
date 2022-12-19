@@ -398,21 +398,21 @@ class hookScene extends Phaser.Scene {
     );
 
     this.playerSide = this.physics.add.sprite(
-      this.screenWidth - 250,
+      this.screenWidth / 2 + 100,
       this.screenHeight / 2 + 100,
       "playerSide"
     );
     this.playerSide.setCollideWorldBounds(true);
     this.playerSide.setDamping(true);
     this.playerSide.setDrag(0.99);
-    this.playerSide.setScale(0.6);
+    this.playerSide.setScale(0.7);
 
     this.oilStationSide = this.add.sprite(
       200,
-      this.screenHeight / 2 - 80,
+      this.screenHeight / 2 - 100,
       "oilStationSide"
     );
-    this.oilStationSide.setScale(0.4);
+    this.oilStationSide.setScale(0.6);
 
     // this.oilStationAnim = this.add.sprite(
     //   this.screenWidth / 2,
