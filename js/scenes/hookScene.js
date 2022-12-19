@@ -8,62 +8,7 @@ class hookScene extends Phaser.Scene {
     this.cursors = undefined;
   }
 
-  preload() {
-    this.load.image("sky", "../../assets/sky.png");
-    this.load.image("ocean", "../../assets/hookOcean.png");
-    this.load.image("playerSide", "../../assets/player/playerSide.png");
-    this.load.image(
-      "oilStationSide",
-      "../../assets/objects/oilStationSide.png"
-    );
-    this.load.image(
-      "oilStationSide2",
-      "../../assets/objects/oilStationSide2.png"
-    );
-    this.load.image("waves3", "../../assets/waves3.png");
-    this.load.image(
-      "mountainIceberg1",
-      "../../assets/objects/mountainIceberg1.png"
-    );
-    this.load.image(
-      "mountainIceberg2",
-      "../../assets/objects/mountainIceber2.png"
-    );
-    this.load.image(
-      "mountainGlaciers1",
-      "../../assets/objects/mountainGlaciers1.png"
-    );
-    this.load.image("downGlaciers1", "../../assets/downGlaciers.png");
-    this.load.image("sideIceberg1", "../../assets/objects/icebergSide1.png");
-    this.load.image(
-      "floorIcebergSide",
-      "../../assets/objects/floorIcebergSide.png"
-    );
-    this.load.image("iceShards1", "../../assets/iceShards1.png");
-    this.load.image(
-      "rightButtonMove",
-      "../../assets/scene/rightButtonMove.png"
-    );
-    this.load.image("oilScore", "../../assets/items/oilScore.png");
-    this.load.image("leftButtonMove", "../../assets/scene/leftButtonMove.png");
-    this.load.image("ice1", "../../assets/objects/iceberg4.png");
-    this.load.image("ice2", "../../assets/objects/iceberg5.png");
-    this.load.image("ice3", "../../assets/objects/iceberg6.png");
-    this.load.image("ice4", "../../assets/objects/iceberg7.png");
-    this.load.image("ice5", "../../assets/objects/iceberg8.png");
-    this.load.image("ice6", "../../assets/objects/iceberg9.png");
-    this.load.image("ice7", "../../assets/objects/iceberg10.png");
-    this.load.image("ice8", "../../assets/objects/iceberg11.png");
-
-    this.load.spritesheet(
-      "sprOilStation",
-      "../../assets/objects/oilStationSideAnim.png",
-      {
-        frameWidth: 1649,
-        frameHeigth: 1197,
-      }
-    );
-  }
+  preload() {}
 
   create() {
     this.anims.create({

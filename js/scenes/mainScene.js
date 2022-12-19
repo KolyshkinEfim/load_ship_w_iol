@@ -16,33 +16,7 @@ class mainScene extends Phaser.Scene {
     this.onPoint = false;
   }
 
-  //#region preload
-  preload() {
-    this.load.image("ocean", "../../assets/ocean.png");
-    this.load.image("waves", "../../assets/waves.png");
-    this.load.image("waves2", "../../assets/waves2.png");
-    this.load.image("smallGlaciers", "../../assets/smallGlaciers.png");
-    this.load.image("smallGlaciers2", "../../assets/smallGlaciers2.png");
-    this.load.image("player", "../../assets/player/player.png");
-
-    this.load.image("iceberg1", "../../assets/objects/iceberg1.png");
-    this.load.image("iceberg2", "../../assets/objects/iceberg2.png");
-    this.load.image("downIceberg1", "../../assets/objects/DownIceberg1.png");
-    this.load.image("downIceberg2", "../../assets/objects/DownIceberg2.png");
-    this.load.image("upIceberg1", "../../assets/objects/UpIceberg1.png");
-    this.load.image("upIceberg2", "../../assets/objects/UpIceberg2.png");
-    this.load.image("upIceberg3", "../../assets/objects/UpIceberg3.png");
-    this.load.image(
-      "rectangle",
-      "../../assets/objects/sceneChangerRectangle.png"
-    );
-
-    this.load.image("enemyIceberg", "../../assets/objects/iceberg1.png");
-    this.load.image("enemyIceberg2", "../../assets/objects/iceberg2.png");
-
-    this.load.image("oilStation", "../../assets/objects/oilStation.png");
-  }
-  //#endregion
+  preload() {}
 
   //#region create
   create() {
