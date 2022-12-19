@@ -15,24 +15,6 @@ class resultScene extends Phaser.Scene {
       window.innerWidth,
       window.innerHeight
     );
-    this.load.image(
-      "background",
-      "../../assets/scene/startSceneBackground.png"
-    );
-
-    this.load.image(
-      "sprBtnRestart",
-      "../../assets/scene/restartSceneButton.png"
-    );
-    this.load.image(
-      "sprBtnRestartHover",
-      "../../assets/scene/restartSceneButtonHover.png"
-    );
-
-    this.load.image(
-      "sprBtnRestartDown",
-      "../../assets/scene/restartSceneButtonDown.png"
-    );
   }
 
   create() {

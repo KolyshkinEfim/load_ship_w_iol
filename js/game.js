@@ -11,7 +11,7 @@ var config = {
       debug: true,
     },
   },
-  scene: [menuScene, mainScene, hookScene, successScene, resultScene],
+  scene: [preloadScene, mainScene, hookScene, successScene, resultScene],
   pixelArt: true,
   roundPixels: true,
 };
