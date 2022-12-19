@@ -277,7 +277,6 @@ class mainScene extends Phaser.Scene {
     } else if (this.cursors.right.isDown) {
       this.player.x = this.missionRectangle.x - 30;
       this.player.y = this.missionRectangle.y;
-      this.scene.start("hookScene");
     } else {
       this.movementReset();
     }
