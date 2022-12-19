@@ -7,6 +7,7 @@ class mainScene extends Phaser.Scene {
     this.player = undefined;
     this.cursors = undefined;
     this.isSlowed = false;
+    this.speed = 20;
 
     // test cases shoud to change the logic and make the code clear
     this.tracker = 0;
@@ -33,7 +34,7 @@ class mainScene extends Phaser.Scene {
     this.waves2 = this.add.image(100, 200, "waves2");
 
     this.oilStation = this.add.image(
-      this.screenWidth - 30,
+      this.screenWidth - 100,
       this.screenHeight / 2,
       "oilStation"
     );
@@ -52,7 +53,7 @@ class mainScene extends Phaser.Scene {
     this.downGlaciers = this.physics.add.image(970, 940, "smallGlaciers2");
 
     this.missionRectangle = this.physics.add.image(
-      this.screenWidth - 250,
+      this.screenWidth - 550,
       this.screenHeight / 2,
       "rectangle"
     );
@@ -89,7 +90,7 @@ class mainScene extends Phaser.Scene {
     this.enemyIceberg8.setScale(0.3);
     this.enemyIceberg9 = this.physics.add.image(1350, 800, "enemyIceberg");
     this.enemyIceberg9.setScale(0.6);
-    this.enemyIceberg10 = this.physics.add.image(1400, 400, "enemyIceberg");
+    this.enemyIceberg10 = this.physics.add.image(1400, 300, "enemyIceberg");
     this.enemyIceberg10.setScale(1);
 
     this.testText = this.add.text(10, 10, "", {
@@ -105,7 +106,7 @@ class mainScene extends Phaser.Scene {
     this.physics.add.overlap(
       this.player,
       [this.downGlaciers, this.upperGlaciers],
-      this.movementSlowed,
+      this.shipCrush,
       null,
       this
     );
@@ -153,38 +154,98 @@ class mainScene extends Phaser.Scene {
   }
   //#endregion
 
-  //#region funttions
-  movementSlowed() {
-    this.isSlowed = true;
-    console.log("SLOWED");
-  }
+  //#region funttion
 
   inMissionStart() {
-    console.log("im inside");
     if (this.missionEvent == false) {
       this.time.addEvent({
         delay: 1000,
         callback: function () {
           if (this.tracker < 5) {
             ++this.tracker;
+            this.speed = this.speed - 2;
           }
           if (this.tracker === 5) {
-            // while()
+            console.log(this.tracker);
+            this.tracker = 1000;
             this.player.x = this.missionRectangle.x;
             this.player.y = this.missionRectangle.y;
-            this.player.setVelocityX(0);
-            this.player.setVelocityY(0);
             if (!this.cameraScoped) {
               this.scopeCamera();
               this.cameraScoped = true;
-              this.hookSceneChange();
             }
+          }
+          if (this.tracker === 1000) {
+            this.tracker = 999;
+            this.shipDistanceChangeRequest(1);
+          }
+          if (this.tracker === 999) {
+            if (this.player.x >= this.oilStation.x - 400) {
+              this.shipDistanceChangeRequest(2);
+              this.tracker = 500;
+            }
+          }
+          if (this.tracker === 500) {
+            if (this.player.x >= this.oilStation.x - 350) {
+              this.speed = 8;
+              this.shipDistanceChangeRequest(3);
+              this.tracker = 49;
+            }
+          }
+          if (this.tracker === 49) {
+            if (this.player.x >= this.distanceRectangle.x - 20) {
+              this.tracker = 50;
+            }
+          }
+          if (this.tracker === 50) {
+            this.hookSceneChange();
           }
         },
         callbackScope: this,
         loop: true,
       });
       this.missionEvent = true;
+    }
+  }
+
+  shipDistanceChangeRequest(type) {
+    if (type === 1) {
+      this.missionRectangle.destroy();
+      this.distanceRectangle = this.physics.add.image(
+        this.oilStation.x - 300,
+        this.oilStation.y,
+        "distanceRectnagle"
+      );
+      this.distanceRectangle.setScale(0.15);
+      this.messege = this.physics.add.image(
+        this.distanceRectangle.x,
+        this.distanceRectangle.y - 50,
+        "1000m"
+      );
+      this.messege.setScale(0.2);
+    }
+    if (type === 2) {
+      this.messege.destroy();
+      this.distanceRectangle.setScale(0.1);
+      this.distanceRectangle.x += 40;
+      this.message1 = this.physics.add.image(
+        this.distanceRectangle.x,
+        this.distanceRectangle.y - 50,
+        "500m"
+      );
+      this.message1.setScale(0.2);
+    }
+    if (type === 3) {
+      this.message1.destroy();
+      this.distanceRectangle.setScale(0.08);
+      this.distanceRectangle.x += 20;
+      this.message2 = this.physics.add.image(
+        this.distanceRectangle.x,
+        this.distanceRectangle.y - 50,
+        "80m"
+      );
+      this.message2.setScale(0.2);
+      this.tracker = 50;
     }
   }
 
@@ -208,18 +269,17 @@ class mainScene extends Phaser.Scene {
   }
 
   movement() {
-    if (!this.missionEvent) {
-      this.player.setVelocityX(20);
-      if (this.cursors.up.isDown) {
-        this.player.setVelocityY(-20); // default valuer is a -20 & 20
-      } else if (this.cursors.down.isDown) {
-        this.player.setVelocityY(20);
-      } else if (this.cursors.right.isDown) {
-        this.player.x = this.missionRectangle.x - 30;
-        this.player.y = this.missionRectangle.y;
-      } else {
-        this.movementReset();
-      }
+    this.player.setVelocityX(this.speed);
+    if (this.cursors.up.isDown) {
+      this.player.setVelocityY(-this.speed); // default valuer is a -20 & 20
+    } else if (this.cursors.down.isDown) {
+      this.player.setVelocityY(this.speed);
+    } else if (this.cursors.right.isDown) {
+      this.player.x = this.missionRectangle.x - 30;
+      this.player.y = this.missionRectangle.y;
+      this.scene.start("hookScene");
+    } else {
+      this.movementReset();
     }
     this.fail();
   }
