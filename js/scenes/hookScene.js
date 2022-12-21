@@ -11,17 +11,8 @@ class hookScene extends Phaser.Scene {
   preload() {}
 
   create() {
-    this.anims.create({
-      key: "sprOilStation",
-      frames: this.anims.generateFrameNumbers("sprOilStation"),
-      frameRate: 20,
-      repeat: 0,
-    });
-
-    // this.play("sprOilStation");
-
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.backgrounOcean = this.add.image(0, this.screenHeight / 2, "ocean");
+    this.backgrounOcean = this.add.image(0, this.screenHeight / 2, "hookOcean");
 
     this.backgroundSky = this.add.image(0, 0, "sky");
 
@@ -412,16 +403,25 @@ class hookScene extends Phaser.Scene {
       this.screenHeight / 2 - 100,
       "oilStationSide"
     );
-    this.oilStationSide.setScale(0.6);
+    this.oilStationSide.setScale(0.5);
 
-    // this.oilStationAnim = this.add.sprite(
-    //   this.screenWidth / 2,
-    //   this.screenHeight / 2,
-    //   "sprOilStation"
-    // );
-    // this.play("sprOilStation  ");
+    this.anims.create({
+      key: "rocketConnect",
+      frameRate: 10,
+      frames: this.anims.generateFrameNumbers("sprRocket", {
+        start: 0,
+        end: 7,
+      }),
+      repeat: -1,
+    });
 
-    // this.oilStationAnim.setScale(0.2);
+    var rocket = this.add.sprite(
+      this.oilStationSide.x + 250,
+      this.oilStationSide.y - 150,
+      "sprRocket"
+    );
+    rocket.setScale(1.5);
+    rocket.play("rocketConnect");
   }
 
   movement() {

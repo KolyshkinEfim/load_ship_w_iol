@@ -111,10 +111,15 @@ class preloadScene extends Phaser.Scene {
         frameHeigth: 1197,
       }
     );
+
+    this.load.spritesheet("sprRocket", "../../assets/objects/rockerAnim.png", {
+      frameWidth: 300,
+      frameHeigth: 500,
+    });
     //#endregion
   }
 
   create() {
-    this.scene.start("mainScene");
+    this.scene.start("hookScene");
   }
 }
