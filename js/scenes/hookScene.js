@@ -448,6 +448,9 @@ class hookScene extends Phaser.Scene {
       }
     );
 
+    this.barZone = this.add.image(this.bar.x + 55, this.bar.y - 10, "barZone");
+    this.barZone.setScale(0.5);
+
     this.keySpace = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );
@@ -477,7 +480,7 @@ class hookScene extends Phaser.Scene {
         this.rocket.visible = true;
         this.rocket.play("rocketConnect");
         this.oil += 2;
-        setTimeout(() => this.scene.start("successScene"), 2000);
+        setTimeout(() => this.scene.start("successScene"), 2500);
       } else {
         this.scene.start("resultScene");
       }
