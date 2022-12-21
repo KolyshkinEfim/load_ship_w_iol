@@ -319,8 +319,8 @@ class mainScene extends Phaser.Scene {
   //#region update
   update() {
     this.movement();
-    this.testSpeedChecker(); //just for the test
-    this.checkPlayerPos(); // position of player
+    // this.testSpeedChecker(); //just for the test
+    // this.checkPlayerPos(); // position of player
   }
   //#endregion update
 }

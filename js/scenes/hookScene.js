@@ -6,13 +6,14 @@ class hookScene extends Phaser.Scene {
     this.oil = 0;
     this.playerSide = undefined;
     this.cursors = undefined;
+    this.spaceState = false;
   }
 
   preload() {}
 
   create() {
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.backgrounOcean = this.add.image(0, this.screenHeight / 2, "hookOcean");
+    this.backgrounOcean = this.add.image(500, 500, "oceanSide");
 
     this.backgroundSky = this.add.image(0, 0, "sky");
 
@@ -356,37 +357,37 @@ class hookScene extends Phaser.Scene {
     );
     this.floorIcebergSide.setScale(0.5);
 
-    this.btnLeft = this.add.sprite(
-      this.screenWidth / 2 - 150,
-      this.screenHeight / 2 + 300,
-      "leftButtonMove"
-    );
-    this.btnLeft.setScale(0.5);
-    this.btnLeft.setInteractive();
+    // this.btnLeft = this.add.sprite(
+    //   this.screenWidth / 2 - 150,
+    //   this.screenHeight / 2 + 300,
+    //   "leftButtonMove"
+    // );
+    // this.btnLeft.setScale(0.5);
+    // this.btnLeft.setInteractive();
 
-    this.btnLeft.on(
-      "pointerdown",
-      function () {
-        this.playerSide.setVelocityX(-20);
-      },
-      this
-    );
+    // this.btnLeft.on(
+    //   "pointerdown",
+    //   function () {
+    //     this.playerSide.setVelocityX(-20);
+    //   },
+    //   this
+    // );
 
-    this.btnRight = this.add.sprite(
-      this.screenWidth / 2 + 150,
-      this.screenHeight / 2 + 300,
-      "rightButtonMove"
-    );
-    this.btnRight.setScale(0.5);
-    this.btnRight.setInteractive();
+    // this.btnRight = this.add.sprite(
+    //   this.screenWidth / 2 + 150,
+    //   this.screenHeight / 2 + 300,
+    //   "rightButtonMove"
+    // );
+    // this.btnRight.setScale(0.5);
+    // this.btnRight.setInteractive();
 
-    this.btnRight.on(
-      "pointerdown",
-      function () {
-        this.playerSide.setVelocityX(20);
-      },
-      this
-    );
+    // this.btnRight.on(
+    //   "pointerdown",
+    //   function () {
+    //     this.playerSide.setVelocityX(20);
+    //   },
+    //   this
+    // );
 
     this.playerSide = this.physics.add.sprite(
       this.screenWidth / 2 + 100,
@@ -407,21 +408,49 @@ class hookScene extends Phaser.Scene {
 
     this.anims.create({
       key: "rocketConnect",
-      frameRate: 10,
+      frameRate: 8,
       frames: this.anims.generateFrameNumbers("sprRocket", {
         start: 0,
         end: 7,
       }),
-      repeat: -1,
+      repeat: 0,
     });
 
-    var rocket = this.add.sprite(
+    this.rocket = this.add.sprite(
       this.oilStationSide.x + 250,
       this.oilStationSide.y - 150,
       "sprRocket"
     );
-    rocket.setScale(1.5);
-    rocket.play("rocketConnect");
+    this.rocket.setScale(0.5);
+    this.rocket.visible = false;
+
+    this.bar = this.add.image(
+      this.screenWidth / 2,
+      this.screenHeight / 2 - 300,
+      "bar"
+    );
+    this.bar.setScale(0.5);
+
+    this.barPointer = this.physics.add.sprite(
+      this.bar.x - 120,
+      this.bar.y - 45,
+      "barCursor"
+    );
+    this.barPointer.setScale(0.5);
+
+    this.whatToDo = this.add.text(
+      this.screenWidth / 2 - 300,
+      this.screenHeight / 2 - 500,
+      "Нажмите ПРОБЕЛ чтобы выстрелить",
+      {
+        font: "32px Courier",
+        fill: "#00ff00",
+      }
+    );
+
+    this.keySpace = this.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
   }
 
   movement() {
@@ -435,20 +464,35 @@ class hookScene extends Phaser.Scene {
     }
   }
 
-  docking() {
-    this.playerSide.setVelocityX(0);
-    this.sliderStrip = this.load.image(
-      this.screenWidth - 100,
-      this.screenHeight / 2
-    );
-  }
-
   updateScore() {
     this.scoreText.setText(this.oil);
   }
 
+  barResult() {
+    if (this.keySpace.isDown) {
+      if (this.barPointer.x >= this.bar.x + 60) {
+        this.spaceState = true;
+        console.log("youWin");
+        this.barPointer.setVelocityX(0);
+        this.rocket.visible = true;
+        this.rocket.play("rocketConnect");
+        this.oil += 2;
+        setTimeout(() => this.scene.start("successScene"), 2000);
+      } else {
+        this.scene.start("resultScene");
+      }
+    }
+    if (!this.spaceState) {
+      if (this.barPointer.x <= this.bar.x - 120) {
+        this.barPointer.setVelocityX(500);
+      } else if (this.barPointer.x >= this.bar.x + 120) {
+        this.barPointer.setVelocityX(-500);
+      }
+    }
+  }
+
   update() {
-    this.movement();
+    this.barResult();
     this.updateScore();
   }
 }
