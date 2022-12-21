@@ -119,6 +119,7 @@ class preloadScene extends Phaser.Scene {
 
     this.load.image("bar", "../../assets/scene/bar.png");
     this.load.image("barCursor", "../../assets/scene/barCursor.png");
+    this.load.image("barZone", "../../assets/scene/barZone.png");
     //#endregion
   }
 
