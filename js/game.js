@@ -8,7 +8,7 @@ var config = {
     arcade: {
       fps: 60,
       gravity: { x: 0, y: 0 },
-      debug: true,
+      // debug: true,
     },
   },
   scene: [preloadScene, mainScene, hookScene, successScene, resultScene],

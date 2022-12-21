@@ -58,7 +58,7 @@ class preloadScene extends Phaser.Scene {
     //#endregion
     //#region hookScene
     this.load.image("sky", "../../assets/sky.png");
-    this.load.image("ocean", "../../assets/hookOcean.png");
+    this.load.image("oceanSide", "../../assets/hookOcean.png");
     this.load.image("playerSide", "../../assets/player/playerSide.png");
     this.load.image(
       "oilStationSide",
@@ -111,6 +111,14 @@ class preloadScene extends Phaser.Scene {
         frameHeigth: 1197,
       }
     );
+
+    this.load.spritesheet("sprRocket", "../../assets/objects/rocketAnim.png", {
+      frameWidth: 1000,
+      frameHeigth: 1600,
+    });
+
+    this.load.image("bar", "../../assets/scene/bar.png");
+    this.load.image("barCursor", "../../assets/scene/barCursor.png");
     //#endregion
   }
 
