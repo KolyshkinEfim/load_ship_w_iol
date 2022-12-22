@@ -427,7 +427,7 @@ class hookScene extends Phaser.Scene {
     this.bar = this.add.image(
       this.screenWidth / 2,
       this.screenHeight / 2 - 300,
-      "bar"
+      "shotBar"
     );
     this.bar.setScale(0.5);
 
@@ -447,9 +447,6 @@ class hookScene extends Phaser.Scene {
         fill: "#00ff00",
       }
     );
-
-    this.barZone = this.add.image(this.bar.x + 55, this.bar.y - 10, "barZone");
-    this.barZone.setScale(0.5);
 
     this.keySpace = this.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
@@ -473,9 +470,8 @@ class hookScene extends Phaser.Scene {
 
   barResult() {
     if (this.keySpace.isDown) {
-      if (this.barPointer.x >= this.bar.x + 60) {
+      if (this.barPointer.x >= this.bar.x + 40) {
         this.spaceState = true;
-        console.log("youWin");
         this.barPointer.setVelocityX(0);
         this.rocket.visible = true;
         this.rocket.play("rocketConnect");
